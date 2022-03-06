@@ -12,10 +12,10 @@ purple = [1,0,1,1]
 
 class HBoxLayoutExample(App):
     def build(self):
-        layout = BoxLayout(padding=10)
+        layout = BoxLayout(padding=10, spacing=10, orientation="horizontal")
         colors = [red, green, blue, purple]
 
-        for i in range(5):
+        for i in range(4):
             btn = Button(text="Button #%s" % (i+1),
                          background_color=random.choice(colors)
                          )
