@@ -1,2 +1,6 @@
 my_kivy_project
 my_kivy_project/*
+.buildozer
+.buildozer/*
+bin
+bin/*
