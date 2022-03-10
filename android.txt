@@ -1,0 +1,3 @@
+title=SandCastles
+author="Subhayu Kumar Bala"
+orientation=portrait

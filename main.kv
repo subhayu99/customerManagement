@@ -1,0 +1,197 @@
+<BoxLayout>
+    orientation: "horizontal"
+    padding: 2
+
+<Button>
+    font_size: 30
+    # size_hint: (0.5, 0.5)
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    background_normal: ""
+
+<TextInput>
+    font_size: 20
+    multiline: False
+    background_normal: ""
+    background_color: (40/255, 160/255, 120/255, 0.2) #RGBA
+    pos_hint: {"center_x": 0, "center_y": 0.5}
+    # size_hint: (0.2, 0.7)
+
+<Label>
+    size_hint: (1.2, 1)
+    font_size: 20
+    background_color: (40/255, 160/255, 120/255, 1)
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    # color: (10/255, 30/255, 20/255, 1)
+    bold: True
+
+
+<MyGridLayout>
+    invoice_num: invoice_num
+    customer: customer
+    paid: paid
+    booking_date: booking_date
+    check_in: check_in
+    check_out: check_out
+    heads: heads
+
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+
+        Accordion:
+            orientation: "vertical"
+
+            AccordionItem:
+                title: "Basic Details"
+                collapse: False
+
+                GridLayout:
+                    size_hint: (1, 1)
+                    cols: 1
+
+                    BoxLayout:
+                        Label:
+                            text: "Invoice Number"
+                        TextInput:
+                            id: invoice_num
+                            hint_text: "SND001"
+
+                    BoxLayout:
+                        Label:
+                            text: "Customer Name"
+                        TextInput:
+                            id: customer
+                            hint_text: "Abhishek Roy"
+
+                    BoxLayout:
+                        Label:
+                            text: "Booking Date"
+                        TextInput:
+                            id: booking_date
+                            hint_text: "29/02/2022"
+
+                    BoxLayout:
+                        Label:
+                            text: "Amount Paid"
+                        TextInput:
+                            id: paid
+                            hint_text: "5000.00"
+                            input_filter: "float"
+
+                    BoxLayout:
+                        Label:
+                            text: "Check-In Time"
+                        TextInput:
+                            id: check_in
+                            hint_text: "12:00 PM"
+
+                    BoxLayout:
+                        Label:
+                            text: "Check-Out Time"
+                        TextInput:
+                            id: check_out
+                            hint_text: "10:00 AM"
+
+                    BoxLayout:
+                        Label:
+                            text: "Head Count"
+                        TextInput:
+                            id: heads
+                            hint_text: "9"
+                            input_filter: "int"
+
+            AccordionItem:
+                title: "Item Details"
+                # collapse_alpha: 0.9
+                GridLayout:
+                    size_hint: (1, 1)
+                    cols: 1
+
+                    BoxLayout:
+                        Label:
+                            text: "Separate each item's detail into new lines"
+                            size_hint: (1, 1)
+                            font_size: 18
+                            background_color: (0, 0.4, 1, 0.2)
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                Rectangle:
+                                    size: self.size
+                                    pos: self.pos
+                            color: (10/255, 30/255, 20/255, 1)
+                            bold: True
+
+                    BoxLayout:
+                        Label:
+                            text: "Item Description"
+                        TextInput:
+                            id: item_desc
+                            multiline: True
+                            hint_text: "XL Adv Tent (For 2 heads)\nGroup Castle (For 5 heads)"
+
+                    BoxLayout:
+                        Label:
+                            text: "Addon Services"
+                        TextInput:
+                            id: addons
+                            multiline: True
+                            hint_text: "Including food\nIncluding AC"
+                    
+                    BoxLayout:
+                        Label:
+                            text: "Price per Item"
+                        TextInput:
+                            id: price
+                            hint_text: "1800\n5400.00"
+                            input_filter: "float"
+                            multiline: True
+                    
+                    BoxLayout:
+                        Label:
+                            text: "Quantity"
+                        TextInput:
+                            id: qty
+                            hint_text: "2\n1"
+                            input_filter: "int"
+                            multiline: True
+
+        BoxLayout:
+            size_hint: (0.2, 0.3)
+            padding: 4
+            orientation: "vertical"
+            Label:
+                id: message_label
+                text: "Fill in the details and Submit"
+                size_hint: (1, 1)
+                font_size: 20
+                background_color: (1, 1, 1, 1)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                color: (10/255, 30/255, 20/255, 1)
+                bold: True
+            RoundedButton:
+                text: "Submit"
+                on_press: root.press()
+                # background_color: (40/255, 170/255, 100/255, 0.5) #RGBA
+                # background_color: utils.get_color_from_hex("#32a852")
+
+<RoundedButton@Button>
+    background_normal: ""
+    background_color: (0, 0, 0, 0) #RGBA
+    canvas.before:
+        Color:
+            rgba: (40/255, 160/255, 120/255, 1) #RGBA 
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [30]

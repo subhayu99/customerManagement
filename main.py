@@ -2,21 +2,9 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.lang import Builder
 from kivy.core.window import Window
-from kivy.uix.accordion import Accordion, AccordionItem
 from invoicepdf import invoice
 
 Builder.load_file("main.kv")
-
-class MyAccordionItem(AccordionItem):
-    pass
-
-class MyAccordion(Accordion):
-    def __init__(self, **kwargs):
-        super(MyAccordion, self).__init__(**kwargs)
-
-        for i in range(1, 5):
-            accordionitem = MyAccordionItem(title=f"Item {i}")
-            self.add_widget(accordionitem)
 
 class MyGridLayout(Widget):
     def press(self):
@@ -50,7 +38,7 @@ class MyGridLayout(Widget):
         else:
             self.ids.message_label.text = "Some values are missing!!"
 
-class MyApp(App):
+class SandCastles(App):
 
     def build(self):
         # change background color
@@ -60,4 +48,4 @@ class MyApp(App):
 
 
 if __name__ == '__main__':
-    MyApp().run()
+    SandCastles().run()
