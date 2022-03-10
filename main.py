@@ -1,70 +1,63 @@
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
+from kivy.uix.widget import Widget
+from kivy.lang import Builder
+from kivy.core.window import Window
+from kivy.uix.accordion import Accordion, AccordionItem
+from invoicepdf import invoice
 
-class MainApp(App):
-    def build(self):
-        self.operators = ["/", "*", "+", "-"]
-        self.last_was_operator = None
-        self.last_button = None
-        main_layout = BoxLayout(orientation="vertical")
-        self.solution = TextInput(
-            multiline=False, readonly=True, halign="right", font_size=55
-        )
-        main_layout.add_widget(self.solution)
-        buttons = [
-            ["7", "8", "9", "/"],
-            ["4", "5", "6", "*"],
-            ["1", "2", "3", "-"],
-            [".", "0", "C", "+"],
-        ]
-        for row in buttons:
-            h_layout = BoxLayout()
-            for label in row:
-                button = Button(
-                    text=label,
-                    pos_hint={"center_x": 0.5, "center_y": 0.5},
-                )
-                button.bind(on_press=self.on_button_press)
-                h_layout.add_widget(button)
-            main_layout.add_widget(h_layout)
+Builder.load_file("main.kv")
 
-        equals_button = Button(
-            text="=", pos_hint={"center_x": 0.5, "center_y": 0.5}
-        )
-        equals_button.bind(on_press=self.on_solution)
-        main_layout.add_widget(equals_button)
+class MyAccordionItem(AccordionItem):
+    pass
 
-        return main_layout
-    
-    def on_button_press(self, instance):
-        current = self.solution.text
-        button_text = instance.text
+class MyAccordion(Accordion):
+    def __init__(self, **kwargs):
+        super(MyAccordion, self).__init__(**kwargs)
 
-        if button_text == "C":
-            # Clear the solution widget
-            self.solution.text = ""
+        for i in range(1, 5):
+            accordionitem = MyAccordionItem(title=f"Item {i}")
+            self.add_widget(accordionitem)
+
+class MyGridLayout(Widget):
+    def press(self):
+        invoice_num = self.ids.invoice_num.text
+        customer = self.ids.customer.text
+        paid = self.ids.paid.text
+        booking_date = self.ids.booking_date.text
+        check_in = self.ids.check_in.text
+        check_out = self.ids.check_out.text
+        heads = self.ids.heads.text
+        
+        item_desc = self.ids.item_desc.text.split("\n")
+        addons = self.ids.addons.text.split("\n")
+        price = self.ids.price.text.split("\n")
+        qty = self.ids.qty.text.split("\n")
+
+        items = []
+        items_len = 0
+        for (i, j, k, l) in zip(item_desc, addons, price, qty):
+            item = [i, j, k, l]
+            items_len += len(''.join(item))
+            if items_len != 0:
+                items.append(item)
+
+
+        every_len = len(f"{invoice_num}{customer}{paid}{booking_date}{check_in}{check_out}{heads}")+items_len
+        print(every_len)
+        if every_len != 0:
+            invoice(invoice_num, customer, paid, booking_date, check_in, check_out, heads, items)
+            self.ids.message_label.text = "Details have been Submitted"
         else:
-            if current and (
-                self.last_was_operator and button_text in self.operators):
-                # Don't add two operators right after each other
-                return
-            elif current == "" and button_text in self.operators:
-                # First character cannot be an operator
-                return
-            else:
-                new_text = current + button_text
-                self.solution.text = new_text
-        self.last_button = button_text
-        self.last_was_operator = self.last_button in self.operators
+            self.ids.message_label.text = "Some values are missing!!"
 
-    def on_solution(self, instance):
-        text = self.solution.text
-        if text:
-            solution = str(eval(self.solution.text))
-            self.solution.text = solution
+class MyApp(App):
 
-if __name__ == "__main__":
-    app = MainApp()
-    app.run()
+    def build(self):
+        # change background color
+        Window.clearcolor = (1, 1, 1, 1)
+        
+        return MyGridLayout()
+
+
+if __name__ == '__main__':
+    MyApp().run()
