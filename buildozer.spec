@@ -49,7 +49,7 @@ requirements = python3,kivy,reportlab,sqlite3
 #presplash.filename = %(source.dir)s/data/presplash.png
 
 # (str) Icon of the application
-icon.filename = icon.png
+icon.filename = logo.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
 orientation = portrait
