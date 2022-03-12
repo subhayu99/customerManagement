@@ -1,8 +1,8 @@
-<BoxLayout>
+<MDBoxLayout>
     orientation: "horizontal"
     padding: 2
 
-<Button>
+<MDButton>
     font_size: 30
     # size_hint: (0.5, 0.5)
     pos_hint: {"center_x": 0.5, "center_y": 0.5}
@@ -12,22 +12,9 @@
     font_size: 20
     multiline: False
     background_normal: ""
-    background_color: (40/255, 160/255, 120/255, 0.2) #RGBA
+    #background_color: (40/255, 160/255, 120/255, 0.2) #RGBA
     pos_hint: {"center_x": 0, "center_y": 0.5}
     # size_hint: (0.2, 0.7)
-
-<Label>
-    size_hint: (1.2, 1)
-    font_size: 20
-    background_color: (40/255, 160/255, 120/255, 1)
-    canvas.before:
-        Color:
-            rgba: self.background_color
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    # color: (10/255, 30/255, 20/255, 1)
-    bold: True
 
 
 <MyGridLayout>
@@ -54,55 +41,78 @@
                     size_hint: (1, 1)
                     cols: 1
 
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Invoice Number"
                         TextInput:
                             id: invoice_num
                             hint_text: "SND001"
+                            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
 
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Customer Name"
                         TextInput:
                             id: customer
                             hint_text: "Abhishek Roy"
+                            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
 
-                    BoxLayout:
-                        Label:
-                            text: "Booking Date"
-                        TextInput:
-                            id: booking_date
-                            hint_text: "29/02/2022"
-
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
+                            text: "Check-in Date"
+                        MDBoxLayout:
+                            TextInput:
+                                id: booking_date
+                                hint_text: "29/02/2022"
+                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+                                # on_focus: root.show_date_picker()
+                            Button:
+                                text: "Pick Date"
+                                size_hint: (0.5, 1)
+                                on_release: root.show_date_picker()
+                            
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Amount Paid"
                         TextInput:
                             id: paid
                             hint_text: "5000.00"
+                            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
                             input_filter: "float"
 
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Check-In Time"
-                        TextInput:
-                            id: check_in
-                            hint_text: "12:00 PM"
+                        MDBoxLayout:
+                            TextInput:
+                                id: check_in
+                                hint_text: "12:00 PM"
+                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+                            # Button:
+                            #     text: "Pick Time"
+                            #     size_hint: (0.4, 1)
+                            #     on_release: root.show_check_in_time_picker()
 
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Check-Out Time"
-                        TextInput:
-                            id: check_out
-                            hint_text: "10:00 AM"
+                        MDBoxLayout:
+                            TextInput:
+                                id: check_out
+                                hint_text: "10:00 AM"
+                                padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
+                            # Button:
+                            #     text: "Pick Time"
+                            #     size_hint: (0.4, 1)
+                            #     on_release: root.show_check_out_time_picker()
 
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Head Count"
                         TextInput:
                             id: heads
                             hint_text: "9"
+                            padding_y: [self.height / 2.0 - (self.line_height / 2.0) * len(self._lines), 0]
                             input_filter: "int"
 
             AccordionItem:
@@ -112,8 +122,8 @@
                     size_hint: (1, 1)
                     cols: 1
 
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Separate each item's detail into new lines"
                             size_hint: (1, 1)
                             font_size: 18
@@ -127,24 +137,31 @@
                             color: (10/255, 30/255, 20/255, 1)
                             bold: True
 
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Item Description"
-                        TextInput:
-                            id: item_desc
-                            multiline: True
-                            hint_text: "XL Adv Tent (For 2 heads)\nGroup Castle (For 5 heads)"
+                        MDBoxLayout:
+                            TextInput:
+                                id: item_desc
+                                multiline: True
+                                hint_text: "XL Adv Tent (For 2 heads)\nGroup Castle (For 5 heads)"
+                            Spinner:
+                                id: item_spinner
+                                text: "Select items"
+                                values: ["Adv Tent", "XL Adv Tent", "Group Castle", "Mud House", "Mud Cottage", "Solo Tent"]
+                                size_hint: (0.6, 1)
+                                on_text: root.selected_item(item_spinner.text)
 
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Addon Services"
                         TextInput:
                             id: addons
                             multiline: True
                             hint_text: "Including food\nIncluding AC"
                     
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Price per Item"
                         TextInput:
                             id: price
@@ -152,8 +169,8 @@
                             input_filter: "float"
                             multiline: True
                     
-                    BoxLayout:
-                        Label:
+                    MDBoxLayout:
+                        ColorLabel:
                             text: "Quantity"
                         TextInput:
                             id: qty
@@ -161,11 +178,11 @@
                             input_filter: "int"
                             multiline: True
 
-        BoxLayout:
+        MDBoxLayout:
             size_hint: (0.2, 0.3)
             padding: 4
             orientation: "vertical"
-            Label:
+            ColorLabel:
                 id: message_label
                 text: "Fill in the details and Submit"
                 size_hint: (1, 1)
@@ -185,9 +202,24 @@
                 # background_color: (40/255, 170/255, 100/255, 0.5) #RGBA
                 # background_color: utils.get_color_from_hex("#32a852")
 
-<RoundedButton@Button>
+
+<ColorLabel@Label>
+    size_hint: (1.2, 1)
+    font_size: 20
+    background_color: (40/255, 160/255, 120/255, 1)
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    # color: (10/255, 30/255, 20/255, 1)
+    bold: True
+
+<RoundedButton@MDFlatButton>
     background_normal: ""
     background_color: (0, 0, 0, 0) #RGBA
+    size_hint: (1,1)
     canvas.before:
         Color:
             rgba: (40/255, 160/255, 120/255, 1) #RGBA 
