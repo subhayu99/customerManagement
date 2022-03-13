@@ -3,3 +3,4 @@ my_kivy_project
 .buildozer
 bin
 db_test
+windowsApp

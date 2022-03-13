@@ -1,0 +1,5 @@
+android==0.0.1
+Flask==2.0.2
+reportlab==3.5.34
+kivymd
+kivy

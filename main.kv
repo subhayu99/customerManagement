@@ -70,6 +70,8 @@
                                 text: "Pick Date"
                                 size_hint: (0.5, 1)
                                 on_release: root.show_date_picker()
+                                # background_normal: ''
+                                # background_color: (0/255, 142/255, 250/255, 1)
                             
                     MDBoxLayout:
                         ColorLabel:
@@ -144,13 +146,15 @@
                             TextInput:
                                 id: item_desc
                                 multiline: True
-                                hint_text: "XL Adv Tent (For 2 heads)\nGroup Castle (For 5 heads)"
+                                hint_text: "XL Adv Tent\nGroup Castle"
                             Spinner:
                                 id: item_spinner
                                 text: "Select items"
                                 values: ["Adv Tent", "XL Adv Tent", "Group Castle", "Mud House", "Mud Cottage", "Solo Tent"]
-                                size_hint: (0.6, 1)
                                 on_text: root.selected_item(item_spinner.text)
+                                size_hint: (0.6, 1)
+                                # background_normal: ''
+                                # background_color: (0/255, 142/255, 250/255, 1)
 
                     MDBoxLayout:
                         ColorLabel:

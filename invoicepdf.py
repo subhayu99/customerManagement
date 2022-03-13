@@ -14,9 +14,9 @@ try:
 except:
     try:
         path = "invoices"
-        os.mkdir()
+        os.mkdir(path)
     except:
-        pass
+        path = ""
 
 def invoice(
     invoice_num,
